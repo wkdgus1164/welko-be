@@ -15,4 +15,17 @@ router.get("/", (req, res) => {
   })
 })
 
+router.get("/:id", (req, res) => {
+  const id = req.params.id
+
+  connection.query(`
+      SELECT *
+      FROM member
+      WHERE id = '${id}'
+  `, (error, rows) => {
+    if (error) throw error
+    res.send(rows)
+  })
+})
+
 module.exports = router
