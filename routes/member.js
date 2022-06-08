@@ -30,8 +30,8 @@ router.get("/login", (req, res) => {
     if (error) throw error
 
     if (rows.length <= 0) {
-      res.status(500).send({
-        code: 500,
+      res.status(401).send({
+        code: 401,
         message: "로그인 정보를 확인해 주세요."
       })
     } else {
