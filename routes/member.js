@@ -35,10 +35,7 @@ router.get("/login", (req, res) => {
         message: "요청하신 정보와 일치하는 사용자가 없습니다."
       })
     } else {
-      res.send({
-        code: 200,
-        message: rows[0].name + "님, 환영합니다."
-      })
+      res.send(rows[0].name + "님, 환영합니다.")
     }
 
   })
