@@ -54,4 +54,39 @@ router.get("/:id", (req, res) => {
   })
 })
 
+router.post("/", (req, res) => {
+  const name = req.body.name
+  const email = req.body.email
+  const password = req.body.password
+
+  connection.query(`
+      SELECT *
+      FROM member
+      WHERE email = '${email}'
+  `, (error, rows) => {
+    if (error) throw error
+
+    if (rows.length > 0) {
+      res.status(500).send({
+        code: 500,
+        message: "이미 존재하는 이메일입니다."
+      })
+    } else {
+
+      connection.query(`
+          INSERT INTO member
+              (email, name, password)
+          VALUES ('${email}', '${name}', '${password}')
+      `, (error, rows) => {
+        if (error) throw error
+        res.send({
+          code: 200,
+          message: "회원가입이 완료되었습니다."
+        })
+      })
+
+    }
+  })
+})
+
 module.exports = router
