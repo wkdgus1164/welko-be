@@ -5,8 +5,14 @@ const connection = mysql.createConnection(dbconfig)
 
 const router = express.Router()
 
-router.get("/", function(req, res, next) {
-  res.send("respond with a resource")
+router.get("/", (req, res) => {
+  connection.query(`
+      SELECT *
+      FROM member
+  `, (error, rows) => {
+    if (error) throw error
+    res.send(rows)
+  })
 })
 
 module.exports = router
