@@ -16,10 +16,10 @@ router.get("/", (req, res) => {
 })
 
 router.get("/login", (req, res) => {
-  const email = req.query.email
-  const password = req.query.password
+  const email = req.body.email
+  const password = req.body.password
 
-  console.log(req.query)
+  console.log(email, password)
 
   connection.query(`
       SELECT *
@@ -30,7 +30,7 @@ router.get("/login", (req, res) => {
     if (error) throw error
 
     if (rows.length <= 0) {
-      res.status(401).send("로그인 정보를 확인해 주세요.")
+      res.status(401).send("No member found with this information.")
     } else {
       res.send("Welcome, " + rows[0].name + "!")
     }
@@ -56,6 +56,10 @@ router.post("/", (req, res) => {
   const email = req.body.email
   const password = req.body.password
 
+  if (!name || !email || !password) {
+    res.status(401).send("Please check your input.")
+  }
+
   connection.query(`
       SELECT *
       FROM member
@@ -64,10 +68,7 @@ router.post("/", (req, res) => {
     if (error) throw error
 
     if (rows.length > 0) {
-      res.status(500).send({
-        code: 500,
-        message: "이미 존재하는 이메일입니다."
-      })
+      res.status(401).send("Already existing email.")
     } else {
 
       connection.query(`
@@ -76,10 +77,7 @@ router.post("/", (req, res) => {
           VALUES ('${email}', '${name}', '${password}')
       `, (error, rows) => {
         if (error) throw error
-        res.send({
-          code: 200,
-          message: "회원가입이 완료되었습니다."
-        })
+        res.send("Register complete.")
       })
 
     }

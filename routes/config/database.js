@@ -1,6 +1,6 @@
 module.exports = {
-  host: "welko.crjw48i2voq5.ap-northeast-2.rds.amazonaws.com",
+  host: "my8002.gabiadb.com",
   user: "welko",
-  password: "rootroot",
+  password: "dreamaker88!",
   database: "welko"
 }
