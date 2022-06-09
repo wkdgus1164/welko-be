@@ -16,10 +16,8 @@ router.get("/", (req, res) => {
 })
 
 router.get("/login", (req, res) => {
-  const email = req.body.email
-  const password = req.body.password
-
-  console.log(email, password)
+  const email = req.query.email
+  const password = req.query.password
 
   connection.query(`
       SELECT *
