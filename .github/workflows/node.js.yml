@@ -23,7 +23,7 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          version_label: v17
+          version_label: v18
           application_name: welko
           environment_name: welko
           region: ap-northeast-2
